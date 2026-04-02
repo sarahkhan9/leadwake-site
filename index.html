@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeadWake — 5 Warm Leads Every Monday</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg-card: #0d1117;
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, 0.10);
+      --green-border: rgba(34, 197, 94, 0.28);
+      --text: #f0f2f5;
+      --muted: #6b7280;
+      --border: rgba(255,255,255,0.06);
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Open Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(34,197,94,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,197,94,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* NAV */
+    nav {
+      padding: 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--green);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 0 4rem;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 2.5rem;
+    }
+
+    .badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--green);
+      color: #060810;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border-radius: 6px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .cta-btn:active { transform: scale(0.97); }
+
+    .hero-note {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    /* SOCIAL PROOF BAR */
+    .proof-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+      margin: 2rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .proof-item {
+      text-align: center;
+    }
+
+    .proof-num {
+      font-family: var(--mono);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--green);
+      display: block;
+    }
+
+    .proof-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      letter-spacing: 0.05em;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      padding: 4rem 0;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .step {
+      background: var(--bg-card);
+      padding: 2rem;
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .step h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .step p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* WHO IT'S FOR */
+    .for {
+      padding: 4rem 0;
+    }
+
+    .for-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .for-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .for-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .for-check svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .for-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .for-card strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* PRICING */
+    .pricing {
+      padding: 4rem 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--green-border);
+      background: var(--green-dim);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: 10px;
+      color: #060810;
+      background: var(--green);
+      padding: 3px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .plan-price {
+      font-family: var(--mono);
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .plan-price span {
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .plan-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 1rem 0 1.5rem;
+      line-height: 1.6;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .plan-features li {
+      font-size: 0.875rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .plan-features li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    /* BOTTOM CTA */
+    .bottom-cta {
+      padding: 4rem 0 8rem;
+      text-align: center;
+    }
+
+    .bottom-cta-box {
+      border: 1px solid var(--green-border);
+      border-radius: 12px;
+      padding: 4rem 3rem;
+      background: var(--green-dim);
+    }
+
+    .bottom-cta h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .bottom-cta p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-right a {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-right a:hover { color: var(--green); }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      .steps { grid-template-columns: 1fr; }
+      .for-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .proof-bar { gap: 2rem; }
+      .bottom-cta-box { padding: 2.5rem 1.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <nav>
+      <a href="#" class="nav-logo">LeadWake</a>
+      <a href="https://hub-site-six.vercel.app" class="nav-back">← sarahkhan.co</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <div class="container">
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Early Access Open
+      </div>
+      <h1>5 warm leads.<br/><em>Every Monday.</em></h1>
+      <p class="hero-sub">
+        LeadWake monitors LinkedIn, Reddit, and Twitter daily for people who need exactly what you do. Five personalized outreach messages — researched, drafted, ready to send. Every week.
+      </p>
+      <a href="YOUR_GOOGLE_FORM_URL" class="cta-btn" target="_blank">Get Early Access</a>
+      <p class="hero-note">No credit card. First week free for early access members.</p>
+    </section>
+
+    <div class="proof-bar">
+      <div class="proof-item">
+        <span class="proof-num">5</span>
+        <span class="proof-label">warm leads / week</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-num">&lt;10min</span>
+        <span class="proof-label">weekly review time</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-num">$2–10k</span>
+        <span class="proof-label">avg client value</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-num">$149</span>
+        <span class="proof-label">per month</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="container">
+    <section class="how">
+      <div class="section-label">How it works</div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01 — Monitor</span>
+          <h3>Buying signals found daily</h3>
+          <p>The agent scans LinkedIn, Reddit, and Twitter every day for people posting about needing your exact service — growth design, consulting, fractional work.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">02 — Draft</span>
+          <h3>Personalized messages written</h3>
+          <p>Five outreach messages drafted every week — researched, specific to each lead, and written in your voice. Not templates. Not cold lists.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">03 — Send</span>
+          <h3>Review in under ten minutes</h3>
+          <p>You see the leads, read the drafts, edit if you want, and send. Monday morning. Under ten minutes. Then you move on with your week.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- WHO IT'S FOR -->
+  <div class="container">
+    <section class="for">
+      <div class="section-label">Who it's for</div>
+      <div class="for-grid">
+        <div class="for-card">
+          <div class="for-check">
+            <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 5l2.5 2.5L8 3" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p><strong>Freelance designers</strong> who want consistent client work without running a content machine</p>
+        </div>
+        <div class="for-card">
+          <div class="for-check">
+            <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 5l2.5 2.5L8 3" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p><strong>Fractional executives</strong> who need pipeline but don't have time to build one manually</p>
+        </div>
+        <div class="for-card">
+          <div class="for-check">
+            <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 5l2.5 2.5L8 3" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p><strong>Independent consultants</strong> whose income depends on winning clients and who have no consistent system</p>
+        </div>
+        <div class="for-card">
+          <div class="for-check">
+            <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 5l2.5 2.5L8 3" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p><strong>Coaches and advisors</strong> looking to grow their client base without cold email blasts</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PRICING -->
+  <div class="container">
+    <section class="pricing">
+      <div class="section-label">Pricing</div>
+      <div class="pricing-grid">
+
+        <div class="pricing-card">
+          <div class="plan-name">Starter</div>
+          <div class="plan-price">$49<span>/mo</span></div>
+          <p class="plan-desc">Five warm touchpoints per week. One industry monitored. Message templates ready to personalize.</p>
+          <ul class="plan-features">
+            <li>5 leads per week</li>
+            <li>1 industry monitored</li>
+            <li>Message templates</li>
+            <li>Weekly email delivery</li>
+          </ul>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="featured-badge">Most popular</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-price">$149<span>/mo</span></div>
+          <p class="plan-desc">Ten warm touchpoints per week. Two industries monitored. Full personalized message drafts — not templates.</p>
+          <ul class="plan-features">
+            <li>10 leads per week</li>
+            <li>2 industries monitored</li>
+            <li>Full message drafts</li>
+            <li>LinkedIn + Reddit + Twitter</li>
+            <li>Review queue interface</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="container">
+    <section class="bottom-cta">
+      <div class="bottom-cta-box">
+        <h2>Wake up to warm leads.</h2>
+        <p>Join the early access list. First week free. No credit card required.</p>
+        <a href="YOUR_GOOGLE_FORM_URL" class="cta-btn" target="_blank">Get Early Access</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="container">
+    <footer>
+      <span class="footer-left">LeadWake — by Sarah Khan</span>
+      <div class="footer-right">
+        <a href="https://hub-site-six.vercel.app">← Back to sarahkhan.co</a>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
